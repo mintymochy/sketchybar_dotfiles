@@ -1,0 +1,55 @@
+
+#!/bin/bash
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+
+
+
+ITEM_DIR="$CONFIG_DIR/items"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar, these are only some of the
+# options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+sketchybar --bar height=42      \
+                 blur_radius=30   \
+                 position=top     \
+                 sticky=off       \
+                 padding_left=10  \
+                 padding_right=10 \
+                 color=$BAR_COLOR
+
+##### Changing Defaults #####
+# https://felixkratz.github.io/SketchyBar/config/items
+
+sketchybar --default icon.font="Hack Nerd Font:Bold:17.0"  \
+                     icon.color=$ACCENT_COLOR           \
+                     label.font="Hack Nerd Font:Bold:14.0" \
+                     label.color=$ACCENT_COLOR               \
+                     padding_left=5                    \
+                     padding_right=5                   \
+                     label.padding_left=4              \
+                     label.padding_right=4             \
+                     icon.padding_left=4               \
+                     icon.padding_right=4               
+                     #updates=when_shown
+
+# -- Left Side Items --
+source $ITEM_DIR/front_app.sh
+source $ITEM_DIR/spaces.sh
+
+# -- Right Side Of Notch Items --
+source $ITEM_DIR/media.sh
+source $ITEM_DIR/spotify.sh
+
+# --- Right Side Items ---
+source $ITEM_DIR/calendar.sh
+source $ITEM_DIR/volume.sh
+source $ITEM_DIR/battery.sh
+
+sketchybar --update
